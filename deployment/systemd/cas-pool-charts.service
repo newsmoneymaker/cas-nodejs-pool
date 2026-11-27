@@ -1,0 +1,17 @@
+[Unit]
+Description=Cascoin pool: charts data collector (hash rate, difficulty, miners, workers on the home page)
+After=cas-pool-redis.service cas-pool-api.service
+Requires=cas-pool-redis.service
+[Service]
+Type=simple
+User=caspool
+WorkingDirectory=/opt/cas-nodejs-pool
+ExecStart=/usr/bin/node /opt/cas-nodejs-pool/init.js -module=chartsDataCollector
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

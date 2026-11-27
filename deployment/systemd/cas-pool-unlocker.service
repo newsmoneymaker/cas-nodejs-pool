@@ -1,0 +1,17 @@
+[Unit]
+Description=Cascoin pool: block unlocker (credits the miners after the coinbase maturity)
+After=cas-pool-redis.service cas-node.service
+Requires=cas-pool-redis.service
+[Service]
+Type=simple
+User=caspool
+WorkingDirectory=/opt/cas-nodejs-pool
+ExecStart=/usr/bin/node /opt/cas-nodejs-pool/init.js -module=unlocker
+Restart=always
+RestartSec=15
+TimeoutStopSec=30
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
